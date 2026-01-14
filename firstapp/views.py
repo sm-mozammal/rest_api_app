@@ -6,11 +6,11 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import io
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 # Create your views here.
-
-
 # QuerySet
 def teacher_info(request):
     # complex data
@@ -22,6 +22,8 @@ def teacher_info(request):
     # convert to json
     json_data = JSONRenderer().render(serializer.data)
     print("json data : ", json_data)
+
+    # return Response(serializer.data)
     # json sent to fronend
     return HttpResponse(json_data, content_type="application/json")
 
@@ -78,4 +80,20 @@ def teacher_create(request):
             json = JSONRenderer().render(response)
             return HttpResponse(json, content_type="application/json")
         json = JSONRenderer().render(serializer_data.errors)
+        return HttpResponse(json, content_type="application/json")
+
+    if request.method == "DELETE":
+        json_data = request.body
+
+        stream = io.BytesIO(json_data)
+
+        pythondata = JSONParser().parse(stream)
+
+        id = pythondata.get("id")
+
+        teacher = Teacher.objects.get(id=id)
+        teacher.delete()
+
+        res = {"message": "Successfully deleted data"}
+        json = JSONRenderer().render(res)
         return HttpResponse(json, content_type="application/json")

@@ -24,5 +24,6 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("teacher/", views.teacher_info),
     path("teacher/<int:pk>", views.teacher_by_id),
-    path("teacher/create/",views.teacher_create, name='teachercreate'),
+    path("teacher/create/", views.teacher_create, name="teachercreate"),
+    path("students/", include("students.urls")),
 ]

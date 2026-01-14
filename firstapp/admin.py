@@ -6,3 +6,4 @@ from .models import Teacher
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ["id", "teacher_name", "course_name", "course_duration", "seat"]
+    
