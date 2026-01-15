@@ -5,7 +5,13 @@ from rest_framework.views import APIView
 from .models import Students, StudentPayment
 from .serializers import StudentSerializer, StudentPaymentSerializer
 from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin
+from rest_framework.mixins import (
+    ListModelMixin,
+    CreateModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+)
 
 
 # Create your views here. (Function Based)
@@ -102,3 +108,41 @@ class StudnetListModelMixin(GenericAPIView, ListModelMixin):
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+# ListModelMixin Crate Students data
+class StudentCreateModelMixin(GenericAPIView, CreateModelMixin):
+    queryset = Students.objects.all()
+    serializer_class = StudentSerializer
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+# ListModelMixin get single Students data
+class StudentRetrive(GenericAPIView, RetrieveModelMixin):
+    queryset = Students.objects.all()
+    serializer_class = StudentSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
+# ListModelMixin update Students data
+class StudentUpdate(GenericAPIView, UpdateModelMixin):
+    queryset = Students.objects.all()
+    serializer_class = StudentSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+# ListModelMixin Delete Students data
+
+
+class StudentDetele(GenericAPIView, DestroyModelMixin):
+    queryset = Students.objects.all()
+    serializer_class = StudentSerializer
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
