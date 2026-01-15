@@ -18,7 +18,7 @@ def teacher_info(request):
     print("teacher : ", teacher)
     # python dict
     serializer = TeacherSerializers(teacher, many=True)
-    print("serializer : ", serializer)
+    print("serializer : ", serializer.data)
     # convert to json
     json_data = JSONRenderer().render(serializer.data)
     print("json data : ", json_data)

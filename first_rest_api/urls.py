@@ -26,4 +26,5 @@ urlpatterns = [
     path("teacher/<int:pk>", views.teacher_by_id),
     path("teacher/create/", views.teacher_create, name="teachercreate"),
     path("students/", include("students.urls")),
+    path("courses/", include("courseapp.urls")),
 ]
