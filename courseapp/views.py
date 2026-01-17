@@ -15,6 +15,13 @@ from rest_framework.mixins import (
 )
 from .models import CourseModel
 from .serializers import CourseSerializer
+from rest_framework import viewsets
+
+
+# Crud api with viewsets
+class Course_Model_View_Sets(viewsets.ModelViewSet):
+    queryset = CourseModel.objects.all()
+    serializer_class = CourseSerializer
 
 
 # Create your views here.
@@ -64,13 +71,7 @@ class CourseListCreate(ListCreateAPIView):
     queryset = CourseModel.objects.all()
     serializer_class = CourseSerializer
 
-    def get(self, request, *args, **kwargs):
-        return Response(
-            {"data": self.get_serializer(self.get_queryset(), many=True).data}
-        )
-        
-        
-        
+
 class Course_Retrive_Update_Destroy(RetrieveUpdateDestroyAPIView):
     queryset = CourseModel.objects.all()
     serializer_class = CourseSerializer
